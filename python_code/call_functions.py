@@ -83,3 +83,23 @@ def getiDFT_no_mean(N):
     w_N = np.exp(2j * np.pi / N)
     W_N = w_N ** (np.outer(np.arange(N), np.arange(N)[1:]))
     return W_N
+
+##################################################
+
+def Euler_Explicit(mat, X0, tspan):
+    X = np.zeros((X0.shape[0],tspan.shape[0])) + np.zeros((X0.shape[0],tspan.shape[0]))*1j
+    dt = tspan[1] - tspan[0]
+    X[:,0] = X0
+    for i in range(1,len(tspan)):
+        X[:,i] = X[:,i-1] + dt * mat @ X[:,i-1]
+    return X
+
+##################################################
+
+def Euler_Implicit(mat, X0, tspan):
+    X = np.zeros((X0.shape[0],tspan.shape[0])) + np.zeros((X0.shape[0],tspan.shape[0]))*1j
+    dt = tspan[1] - tspan[0]
+    X[:,0] = X0
+    for i in range(1,len(tspan)):
+        X[:,i] = np.linalg.solve((1 - dt * mat),X[:,i-1])
+    return X
