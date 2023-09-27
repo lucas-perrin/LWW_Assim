@@ -86,6 +86,8 @@ def getiDFT_no_mean(N):
 
 ##################################################
 
+# Euler ODE does not work (yet) when called in the notebook, but work when implemented in the notebook. To investigate.
+
 def Euler_Explicit(mat, X0, tspan):
     X = np.zeros((X0.shape[0],tspan.shape[0])) + np.zeros((X0.shape[0],tspan.shape[0]))*1j
     dt = tspan[1] - tspan[0]
