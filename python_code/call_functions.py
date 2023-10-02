@@ -115,3 +115,21 @@ def create_Fourier_X0(nb_sin, nb_cos, Nx, dx):
     cos_pos = np.random.rand(pos_frequences.shape[0]) * (pos_frequences <= nb_cos)
     X0 = np.concatenate((np.zeros(1),-sin_pos,sin_pos[::-1]))*1j + np.concatenate((np.zeros(1),cos_pos,cos_pos[::-1]))
     return X0
+
+##################################################
+
+def largest_nonzero_eigenvalue(matrix):
+    # Calculate eigenvalues and eigenvectors
+    eigenvalues, _ = np.linalg.eig(matrix)
+
+    # Filter out nonzero eigenvalues
+    nonzero_eigenvalues = eigenvalues[eigenvalues != 0]
+
+    if len(nonzero_eigenvalues) == 0:
+        # If there are no nonzero eigenvalues, return None
+        return None
+
+    # Find the largest nonzero eigenvalue
+    largest_nonzero_eigenvalue = np.max(np.real(nonzero_eigenvalues))
+
+    return largest_nonzero_eigenvalue
