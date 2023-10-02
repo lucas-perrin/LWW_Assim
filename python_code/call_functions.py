@@ -105,3 +105,13 @@ def Euler_Implicit(mat, X0, tspan):
     for i in range(1,len(tspan)):
         X[:,i] = np.linalg.solve((1 - dt * mat),X[:,i-1])
     return X
+
+##################################################
+
+def create_Fourier_X0(nb_sin, nb_cos, Nx, dx):
+    frequences = fftfreq(Nx, dx) * 2 * np.pi
+    pos_frequences = frequences[1:int((len(frequences)-1)/2)+1]
+    sin_pos = np.random.rand(pos_frequences.shape[0]) * (pos_frequences <= nb_sin)
+    cos_pos = np.random.rand(pos_frequences.shape[0]) * (pos_frequences <= nb_cos)
+    X0 = np.concatenate((np.zeros(1),-sin_pos,sin_pos[::-1]))*1j + np.concatenate((np.zeros(1),cos_pos,cos_pos[::-1]))
+    return X0
