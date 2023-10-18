@@ -133,3 +133,16 @@ def largest_nonzero_eigenvalue(matrix):
     largest_nonzero_eigenvalue = np.max(np.real(nonzero_eigenvalues))
 
     return largest_nonzero_eigenvalue
+
+##################################################
+
+def H_half_norm(vect,frequences):
+    return np.abs(frequences) @ (vect**2)
+
+##################################################
+
+def H_half_times_L2_norm(vect,frequences):
+    nb_frequences = frequences.shape[0]
+    phi = vect[0:nb_frequences,:]
+    eta = vect[nb_frequences:,:]
+    return (np.abs(frequences) @ (phi**2))**2 + np.linalg.norm(eta,2,axis=0)**2
