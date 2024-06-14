@@ -64,11 +64,11 @@ C = - C' * C;
 A = [O, - I; G, C];
 
 % 2) True matrix A in Fourier
-% fO =  zeros(2*Nf+1,2*Nf+1);
-% fI =  - eye(2*Nf+1);
-% fF = diag(abs([[0:1:Nf],[-Nf:1:-1]]));
-% fC = real(-((a*exp((-1i*pi) .* (frequences'-frequences))) ./ pi) .* sinc(a*(frequences'-frequences)/(pi)));
-% fA = [fO,fI;fF,fC];
+fO =  zeros(2*Nf+1,2*Nf+1);
+fI =  - eye(2*Nf+1);
+fF = diag(abs([[0:1:Nf],[-Nf:1:-1]]));
+fC = real(-((a*exp((-1i*pi) .* (frequences'-frequences))) ./ pi) .* sinc(a*(frequences'-frequences)/(pi)));
+fA = [fO,fI;fF,fC];
 
 % 3) computing the pseudo matrix A (size (Nx-1)^2) :
 
