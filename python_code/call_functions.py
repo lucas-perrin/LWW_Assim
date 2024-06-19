@@ -35,9 +35,9 @@ def fftfreq(n, d):
 
 ##################################################
 
-def Matrix_A_dz(Nx, dx):
+def Matrix_A_dz(Nx, dx, d):
     k = 2 * np.pi * fftfreq(Nx, dx)
-    kernel = np.real(np.fft.ifft(np.abs(k))) * Nx
+    kernel = np.real(np.fft.ifft(np.abs(k)*np.tanh(d*np.abs(k)))) * Nx
     A_dz = np.zeros((Nx, Nx))
     for j in range(Nx):
         A_dz[j, :] = (1 / Nx) * np.roll(kernel, j)
