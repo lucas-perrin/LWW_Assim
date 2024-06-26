@@ -118,6 +118,13 @@ def create_Fourier_X0(nb_sin, nb_cos, Nx, dx):
 
 ##################################################
 
+def create_Fourier_X0_v2(nb_freqs_ini, Nx, dx):
+    frequences = fftfreq(Nx, dx) * 2 * np.pi
+    X0 = (np.abs(frequences) < nb_freqs_ini+1) * (np.abs(frequences) > 0) *(np.random.rand(frequences.shape[0]) + 1j * np.random.rand(frequences.shape[0]))
+    return X0
+
+##################################################
+
 def largest_nonzero_eigenvalue(matrix):
     # Calculate eigenvalues and eigenvectors
     eigenvalues, _ = np.linalg.eig(matrix)
@@ -141,8 +148,18 @@ def H_half_norm(vect,frequences):
 
 ##################################################
 
-def H_half_times_L2_norm(vect,frequences):
+def fH_half_times_L2_norm(vect,frequences):
     nb_frequences = frequences.shape[0]
     phi = vect[0:nb_frequences,:]
     eta = vect[nb_frequences:,:]
     return (np.abs(frequences) @ (phi**2))**2 + np.linalg.norm(eta,2,axis=0)**2
+
+##################################################
+
+def H_half_times_L2_norm(vect,Nx,dx):
+    frequences = fftfreq(Nx, dx) * 2 * np.pi
+    DFT = 1 / Nx * getDFT(Nx)
+    iDFT = getiDFT(Nx)
+    phi = DFT @ vect[0:Nx,:]
+    eta = DFT @ vect[Nx:,:]
+    return ((np.abs(frequences) @ np.abs(phi**2)) + np.linalg.norm(eta,2,axis=0))**(1/2)
